@@ -21,6 +21,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 from statsmodels.formula.api import ols
 import time 
+import seaborn as sns
 from matplotlib.backends.backend_pdf import PdfPages
 
 
@@ -52,7 +53,11 @@ df1.drop(removed_rows, inplace = True)
 #remove all rows in columnn psold with values -9,-1 or -7
 removed_rows = df1[ (df1['psold'] == -7) | (df1['psold'] == -1)].index
 df1.drop(removed_rows, inplace = True)
-print(df1['psold'])
+#print(df1['psold']) # test case
+
+#remove all rows in columnn hegenh with -1
+removed_rows = df1[ (df1['hegenh'] == -1)].index
+df1.drop(removed_rows, inplace = True)
 
 #remove all rows where any column contains the value -9 AKA 'refused to answer'. 
 df1 = df1.replace(to_replace= -9, value=np.nan).dropna()
@@ -75,10 +80,10 @@ married = np.count_nonzero(df1['dimar'] == 2)
 single = np.count_nonzero(df1['dimar'] == 1)
 
 # Test
-print(num_of_widowed, divorced, legally_separated, remarried, married, single)
+#print(num_of_widowed, divorced, legally_separated, remarried, married, single)
 
 # Test count of variables work as should add to 1667. 
-print(num_of_widowed + divorced + legally_separated + remarried + married + single) 
+#print(num_of_widowed + divorced + legally_separated + remarried + married + single) 
 
 
 age_values = [num_of_widowed, divorced, legally_separated, remarried, married, single]
@@ -113,14 +118,33 @@ age_described = df1['age'].describe()
 #print('descriptive statistics of age variable:', '\n', age_described)
 
 # creates histogram of age variable
-ax = df1['age'].hist(bins=30, color = 'LightSteelBlue', normed=True)
+ax = df1['age'].hist(bins=15, color = 'peru', normed=True)
 # plots a KDE line
-df1['age'].plot(kind= 'kde', lw=2, color = 'Green', ax=ax)
+df1['age'].plot(kind= 'kde', lw=1, color = 'black', ax=ax)
+#Plot histogram onto a grid 
 plt.grid()
-plt.title('Histogrm of age with kde')
-plt.locator_params(nbins=5)
+plt.title('Histogram of age with kde')
+
+# define number of bins to plot data
+plt.locator_params(nbins=10)
 plt.xlabel('age (years)')
-#plt.figure()
+plt.figure()
+plt.show(block=False)
+
+#print(df1['disex'].describe())
+
+
+# =============================================================================
+# Count plot 'how is your health in general' (hegenh) split by gender.
+# =============================================================================
+ax3 = sns.countplot(x='hegenh', hue='disex', data=df1)
+# Change handle labels
+handles = ax3.get_legend_handles_labels()[0]
+ax3.legend(handles, ['Male', 'Female'], title='Gender')
+#Set labels, save and show plot
+plt.title('How is your health in general')
+plt.xlabel('Responses (1=Very good, 2=Good, 3=Fair, 4=Bad, 5=Very bad')
+plt.ylabel('Count')
 plt.show(block=False)
 
 # =============================================================================
@@ -130,26 +154,29 @@ plt.show(block=False)
 # =============================================================================
 
 age_psold = df1[['age', 'psold']]
-print(age_psold.head(20))
+#print(age_psold.head(20)) # test case
 
 
 #Create histograms
-ax_list = age_psold.hist(bins=40, figsize=(8,3), xrot=45, color = 'Green')
+ax_list = age_psold.hist(bins=40, figsize=(8,3), xrot=45, color = 'peru')
 ax1, ax2 = ax_list[0]
 ax1.set_title('Age (years)')
 ax2.set_title('age considered old')
+ax1.set_ylabel('Count')
+ax2.set_ylabel('Count')
 for ax in ax_list[0]:
     ax.grid()
     ax.locator_params(axis='x', nbins=10)
-    ax.locator_params(axis='y', nbins=3)
-   
-    
+    ax.locator_params(axis='y', nbins=5)
+
+
 # =============================================================================
 # Linear Regression Analysis
 # =============================================================================
 linear_regression_model = ols("disex ~ dhdobyr + psold", df1, weight=df1.digran).fit()
 model_summary = linear_regression_model.summary()
 #print(model_summary)
+
 
 # =============================================================================
 # Write to excel file with pandas
@@ -163,8 +190,8 @@ pdf = PdfPages('plots.pdf')
 pdf.savefig(1)
 pdf.savefig(2)
 pdf.savefig(3)
+pdf.savefig(4)
 pdf.close()
-
 
 # =============================================================================
 # Save textual command line outputs to a txt file. Program uses open function
