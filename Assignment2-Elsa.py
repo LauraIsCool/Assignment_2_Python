@@ -10,6 +10,13 @@ for assignment 2.
 The programme takes the data collected by the ELSA study on ageing, cleans this data
 performs some data analysis, and then finally prints out the results. 
 
+This program provides visualisation for a number of the variables in the data set. 
+This includes: a newly calculated age variable, gender, marital status, age 
+considered old, and finally responses to a question regarding participants general health. 
+
+Finally the program writes the results of the data to csv file, writes the plots to a pdf
+and writes the textual output to a txt file. 
+
 
 """
 
@@ -67,9 +74,13 @@ df1 = df1.replace(to_replace= -8, value=np.nan).dropna()
 
 # =============================================================================
 # PIE CHART https://chrisalbon.com/python/data_visualization/matplotlib_pie_chart/
+# First this section creates a count for all of the instances of each marital
+# status in the dataset. 
+# This is then tested
+# Next 3 list are created that are used for the pie chart, the first is counts,
+# the second is the labels and the third is the colours used for the pie chart. 
+# The program then plots the pie chart using the 3 lists that have been created.
 # =============================================================================
-
-#print (count(df1['dimar'].value_counts()))
 
 # counts num of each instance of relationship status.
 num_of_widowed = np.count_nonzero(df1['dimar'] == 6)
@@ -94,13 +105,13 @@ colors = ["tan", "lemonchiffon", "orange", "peachpuff", "peru", "rosybrown", "li
 plt.pie(age_values, labels=labels, shadow=False, colors=colors,
         startangle=90, autopct='%1.1f%%')
 plt.title('Visualisation of Relationship Status')
-plt.axis('equal')
-plt.tight_layout()
+plt.tight_layout() # ensure the plot fits in the figure 
 plt.figure()
-plt.show(block=False)
 
 # =============================================================================
 # Contingency Table to show counts of men and women vs relationship status
+# this also includes totals for each of the columns and rows. 
+# this output is then printed to the txt file produced by this program. 
 # =============================================================================
 
 sex_relationship = pd.crosstab(df1['disex'], df1['dimar'], margins = True, 
@@ -111,6 +122,9 @@ sex_relationship = pd.crosstab(df1['disex'], df1['dimar'], margins = True,
 
 # =============================================================================
 # Histogram of age variable with a KDE line.
+# First this section just provides a summary of the age variable with .describe()
+# Next this section creates a new histogram using the age vaiable. Then creates 
+# a KDE line which it maps ontop of the histogram. 
 # =============================================================================
 
 # descriptive statistics of age variable
@@ -136,8 +150,11 @@ plt.show(block=False)
 
 # =============================================================================
 # Count plot 'how is your health in general' (hegenh) split by gender.
+# x variable is participant responses to a likert scale.
+# countplot is used as a means to measure categorical data and disagregates 
+# the response by another category, in this case gender. 
 # =============================================================================
-ax3 = sns.countplot(x='hegenh', hue='disex', data=df1)
+ax3 = sns.countplot(x='hegenh', hue='disex', data=df1, palette='pastel')
 # Change handle labels
 handles = ax3.get_legend_handles_labels()[0]
 ax3.legend(handles, ['Male', 'Female'], title='Gender')
@@ -177,14 +194,13 @@ linear_regression_model = ols("disex ~ dhdobyr + psold", df1, weight=df1.digran)
 model_summary = linear_regression_model.summary()
 #print(model_summary)
 
-
 # =============================================================================
 # Write to excel file with pandas
 # =============================================================================
 df1.to_excel('cleaned_data_python.xlsx', sheet_name='sheet1', index=False)
 
 # =============================================================================
-# Save graphical plots to a pdf file
+# Program creates a new pdf document and writes to this each time its run.
 # =============================================================================
 pdf = PdfPages('plots.pdf')
 pdf.savefig(1)
@@ -223,25 +239,6 @@ print(df1['age'])
 
 
 # =============================================================================
-# Table
-# =============================================================================
-
-# =============================================================================
-# # Count plot of drug use split by gender
-# ax = sns.countplot(x='dimar', hue='disex', data=df1)
-# # Change handle labels
-# handles = ax.get_legend_handles_labels()[0]
-# ax.legend(handles, ['Female', 'Male'], title='Gender')
-# #Set labels, save and show plot
-# plt.title('Number of pupils with reported drug use where 0=no and 1=yes')
-# plt.xlabel('Ever used any drugs')
-# plt.ylabel('Count')
-# plt.savefig('../count_drug.jpg',format='jpg')
-# plt.figure()
-# =============================================================================
-
-
-# =============================================================================
 # Initial practicing test cases
 # =============================================================================
 #print(df) #test data imported correctly 
@@ -257,20 +254,6 @@ wordcloud : https://www.geeksforgeeks.org/generating-word-cloud-python/
             https://www.datacamp.com/community/tutorials/wordcloud-python
             
 content analysis: https://www.datacamp.com/community/tutorials/text-analytics-beginners-nltk
-
-
-# =============================================================================
-# #compare age with money in savings account
-# removed_rows = df1[ (df1['iasava'] == -1) | (df1['iasava'] == -8) | (df1['iasava'] == -9)].index
-# df1.drop(removed_rows, inplace = True)
-# age_iasava = df1[['age', 'iasava']]
-# print(age_iasava.head(20))
-# 
-# ax_list = age_iasava.hist(bins=40, figsize=(8,3), xrot=45)
-# for ax in ax_list[0]:
-#     ax.locator_params(axis='x', nbins=10)
-#     ax.locator_params(axis='y', nbins=3)
-# =============================================================================
 
 
 df1.plot(kind='scatter', x='age', y='psold')

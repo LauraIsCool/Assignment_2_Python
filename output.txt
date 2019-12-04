@@ -7,7 +7,7 @@ Dep. Variable:                  disex   R-squared:                       0.014
 Model:                            OLS   Adj. R-squared:                  0.012
 Method:                 Least Squares   F-statistic:                     5.553
 Date:                Wed, 04 Dec 2019   Prob (F-statistic):            0.00403
-Time:                        15:00:31   Log-Likelihood:                -555.27
+Time:                        15:32:51   Log-Likelihood:                -555.27
 No. Observations:                 773   AIC:                             1117.
 Df Residuals:                     770   BIC:                             1130.
 Df Model:                           2                                         
