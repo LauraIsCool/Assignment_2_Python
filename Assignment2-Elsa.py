@@ -20,7 +20,6 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import numpy as np
 from statsmodels.formula.api import ols
-import seaborn as sns
 import time 
 from matplotlib.backends.backend_pdf import PdfPages
 
