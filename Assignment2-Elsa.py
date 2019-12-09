@@ -52,7 +52,6 @@ df['age'] = 2011 - df['dhdobyr']
 df1 = df[['dhdobyr', 'psold', 'hegenh', 'dimar', 'disex', 'age']]
 #print (df1)
 
-
 #remove all rows in columnn dhdobyr with values -9,-1 or -7
 removed_rows = df1[ (df1['dhdobyr'] == -7) | (df1['dhdobyr'] == -1)].index
 df1.drop(removed_rows, inplace = True)
