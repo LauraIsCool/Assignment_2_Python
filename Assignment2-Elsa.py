@@ -26,7 +26,6 @@ and writes the textual output to a txt file.
 import pandas as pd
 import matplotlib.pyplot as plt
 import numpy as np
-from statsmodels.formula.api import ols
 import time 
 import seaborn as sns
 from matplotlib.backends.backend_pdf import PdfPages
@@ -45,13 +44,14 @@ df = pd.read_csv("elsawave1.csv")  # df stands for dataframe. This is a type of
 # Data Cleaning
 # =============================================================================
 
-# create new data frame that will be edited. 
-#remove all columns after position 500 
-"""PLEASE EDIT THIS TO ONLY INCLUDED USED COLUMNS LAURA!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"""
-df1 = df.drop(df.iloc[:, 500:].columns, axis = 1)
-
 #Create new age variable. This is the age of participant at time survey taken.
-df1['age'] = 2011 - df['dhdobyr']
+df['age'] = 2011 - df['dhdobyr']
+#print(df1)
+
+# create new data frame with columns that will be used in analysis.
+df1 = df[['dhdobyr', 'psold', 'hegenh', 'dimar', 'disex', 'age']]
+#print (df1)
+
 
 #remove all rows in columnn dhdobyr with values -9,-1 or -7
 removed_rows = df1[ (df1['dhdobyr'] == -7) | (df1['dhdobyr'] == -1)].index
@@ -66,10 +66,14 @@ df1.drop(removed_rows, inplace = True)
 removed_rows = df1[ (df1['hegenh'] == -1)].index
 df1.drop(removed_rows, inplace = True)
 
-#remove all rows where any column contains the value -9 AKA 'refused to answer'. 
-df1 = df1.replace(to_replace= -9, value=np.nan).dropna()
-#remove all rows where any column contains the value -8 AKA 'Don't know'. 
-df1 = df1.replace(to_replace= -8, value=np.nan).dropna()
+
+# Create a function that removes all rows with a value of -8 or -9. 
+def remove_missing_values(df1):
+    nan_values = [-8, -9]
+    df1.replace(nan_values, np.nan, inplace=True)
+   
+# Run function to remove all values     
+remove_missing_values(df1)
 #print(df1)
 
 # =============================================================================
@@ -136,7 +140,6 @@ ax = df1['age'].hist(bins=15, color = 'peru', normed=True)
 # plots a KDE line
 df1['age'].plot(kind= 'kde', lw=1, color = 'black', ax=ax)
 #Plot histogram onto a grid 
-plt.grid()
 plt.title('Histogram of age with kde')
 
 # define number of bins to plot data
@@ -188,13 +191,6 @@ for ax in ax_list[0]:
 
 
 # =============================================================================
-# Linear Regression Analysis
-# =============================================================================
-linear_regression_model = ols("disex ~ dhdobyr + psold", df1, weight=df1.digran).fit()
-model_summary = linear_regression_model.summary()
-#print(model_summary)
-
-# =============================================================================
 # Write to excel file with pandas
 # =============================================================================
 df1.to_excel('cleaned_data_python.xlsx', sheet_name='sheet1', index=False)
@@ -215,8 +211,7 @@ pdf.close()
 # write each of the 3 pieces of analysis to a txt file.  
 # =============================================================================
 with open('output.txt', 'w') as f:
-    print('ELSA Wave 1 data python output', file=f)
-    print('\n', 'Logistic Regression Analysis:','\n', model_summary, file=f)
+    print('ELSA Wave 1 data python output', file=f) 
     print('\n', 'Contingency table(sex and relationship status):', '\n', sex_relationship, file=f)
     print('\n', 'Descriptive Statistics for age variable:', '\n', age_described, file=f)
 
@@ -250,11 +245,37 @@ print(df1['age'])
 
 
 
+# =============================================================================
+# Linear Regression Analysis
+# =============================================================================
+linear_regression_model = ols("disex ~ dhdobyr + psold", df1, weight=df1.digran).fit()
+model_summary = linear_regression_model.summary()
+#print(model_summary)
+
+print('\n', 'Logistic Regression Analysis:','\n', model_summary, file=f)
+
+# =============================================================================
+# Data cleaning start point
+# =============================================================================
+
+#remove all columns after position 500 
+#df1 = df.drop(df.iloc[:, 500:].columns, axis = 1)
+# Cleaning data - this method allowed the program to run faster but not very sustainable. 
+df1=   df1.replace(to_replace= -9, value=np.nan).dropna()
+df1 =  df1.replace(to_replace= -8, value=np.nan).dropna()
+
+# =============================================================================
+# References
+# =============================================================================
+
 wordcloud : https://www.geeksforgeeks.org/generating-word-cloud-python/
             https://www.datacamp.com/community/tutorials/wordcloud-python
             
 content analysis: https://www.datacamp.com/community/tutorials/text-analytics-beginners-nltk
 
+# =============================================================================
+# Scatter
+# =============================================================================
 
 df1.plot(kind='scatter', x='age', y='psold')
 plt.title('Age against psold')

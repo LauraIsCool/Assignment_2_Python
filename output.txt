@@ -1,49 +1,19 @@
 ELSA Wave 1 data python output
 
- Logistic Regression Analysis: 
-                             OLS Regression Results                            
-==============================================================================
-Dep. Variable:                  disex   R-squared:                       0.014
-Model:                            OLS   Adj. R-squared:                  0.012
-Method:                 Least Squares   F-statistic:                     5.553
-Date:                Wed, 04 Dec 2019   Prob (F-statistic):            0.00403
-Time:                        15:32:51   Log-Likelihood:                -555.27
-No. Observations:                 773   AIC:                             1117.
-Df Residuals:                     770   BIC:                             1130.
-Df Model:                           2                                         
-Covariance Type:            nonrobust                                         
-==============================================================================
-                 coef    std err          t      P>|t|      [0.025      0.975]
-------------------------------------------------------------------------------
-Intercept     -8.9984      3.617     -2.488      0.013     -16.099      -1.898
-dhdobyr        0.0052      0.002      2.823      0.005       0.002       0.009
-psold          0.0055      0.002      2.385      0.017       0.001       0.010
-==============================================================================
-Omnibus:                     3109.699   Durbin-Watson:                   1.921
-Prob(Omnibus):                  0.000   Jarque-Bera (JB):              121.577
-Skew:                           0.051   Prob(JB):                     3.98e-27
-Kurtosis:                       1.060   Cond. No.                     3.92e+05
-==============================================================================
-
-Warnings:
-[1] Standard Errors assume that the covariance matrix of the errors is correctly specified.
-[2] The condition number is large, 3.92e+05. This might indicate that there are
-strong multicollinearity or other numerical problems.
-
  Contingency table(sex and relationship status): 
- Relationship Status  1.0  2.0  3.0  4.0  5.0  6.0  Total
-Gender (1=M, 2=F)                                       
-1.0                   25  241   57    9   42   22    396
-2.0                   17  191   45    8   51   65    377
-Total                 42  432  102   17   93   87    773
+ Relationship Status  1.0   2.0  3.0  4.0  5.0  6.0  Total
+Gender (1=M, 2=F)                                        
+1.0                  151  1618  334   30  212  223   2568
+2.0                  156  1705  323   45  362  725   3316
+Total                307  3323  657   75  574  948   5884
 
  Descriptive Statistics for age variable: 
- count    773.000000
-mean      71.868047
-std        9.988889
-min       41.000000
-25%       64.000000
-50%       70.000000
-75%       79.000000
-max       99.000000
+ count    5885.000000
+mean       73.036534
+std        10.603213
+min        30.000000
+25%        64.000000
+50%        72.000000
+75%        81.000000
+max        99.000000
 Name: age, dtype: float64
