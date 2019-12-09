@@ -16,10 +16,17 @@
 11. python_assignemnt2_UML.png --> UML diagram describing the process of the program. 
 
 # What the 'Assignment2' - Elsa.py program is 
+The 'Assignment2-Elsa.py' file is my attempt to complete assignment 2 for course code GEOG5995. The assignment brief detailed: reading in a dataset, processing the data set in some way, displaying the results, and printing the results. 
+
+My attempt at this assignment takes the Elsa wave 1 data set (a national dataset looking at ageing), creates a new variable for age, and selects a number of other variables to create a visualisation of the data set. This includes looking at the spread of relationship status within the population, the age distribution, and the age that people consider old, and also a breakdown of how the population consider their health to be. 
+
+The outputs of this program are then printed either to the spreadsheet file, the pdf file or a txt file depending on the type of output generated. 
 
 # How to run 'Assignment2-Elsa.py'
 
-# What to exepct from 'Assignment2-Elsa.py'
+# What to expect from 'Assignment2-Elsa.py'
+
+# For more details about how to run the program and what to expect please refer to the specific documetation created l[here](https://github.com/LauraIsCool/Assignment_2_Python/blob/master/Assignment2_SupportingDocumentation.docx)
 
 # License
 
