@@ -15,8 +15,8 @@
 10. plots.pdf --> pdf images of plots created by program when run. 
 11. python_assignemnt2_UML.png --> UML diagram describing the process of the program. 
 
-### What the 'Assignment2' - Elsa.py program is 
-The 'Assignment2-Elsa.py' file is my attempt to complete assignment 2 for course code GEOG5995. The assignment brief detailed: reading in a dataset, processing the data set in some way, displaying the results, and printing the results. 
+### What the 'Assignment2 - Elsa.py' program is 
+The <b>'Assignment2-Elsa.py'</b> file is my attempt to complete assignment 2 for course code GEOG5995. The assignment brief detailed: reading in a dataset, processing the data set in some way, displaying the results, and printing the results. 
 
 My attempt at this assignment takes the Elsa wave 1 data set (a national dataset looking at ageing), creates a new variable for age, and selects a number of other variables to create a visualisation of the data set. This includes looking at the spread of relationship status within the population, the age distribution, and the age that people consider old, and also a breakdown of how the population consider their health to be. 
 
