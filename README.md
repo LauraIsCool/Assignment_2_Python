@@ -26,7 +26,7 @@ The outputs of this program are then printed either to the spreadsheet file, the
 
 # What to expect from 'Assignment2-Elsa.py'
 
-# For more details about how to run the program and what to expect please refer to the specific documetation created l[here](https://github.com/LauraIsCool/Assignment_2_Python/blob/master/Assignment2_SupportingDocumentation.docx)
+### For more details about how to run the program and what to expect please refer to the specific documetation created [Click Here](https://github.com/LauraIsCool/Assignment_2_Python/blob/master/Assignment2_SupportingDocumentation.docx)
 
 # License
 
