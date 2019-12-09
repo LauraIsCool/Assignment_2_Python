@@ -23,10 +23,17 @@ My attempt at this assignment takes the Elsa wave 1 data set (a national dataset
 The outputs of this program are then printed either to the spreadsheet file, the pdf file or a txt file depending on the type of output generated. 
 
 ### How to run 'Assignment2-Elsa.py'
+This program can be run as a whole as long as the elwawave1.csv dataset is in the same folder as the program. The program has been developed using Spyder IDE so it is recommended that users also use this software. 
 
 ### What to expect from 'Assignment2-Elsa.py'
+This program during testing was taking approximately 4 seconds to run. In the command line the program will produce the time taken to run the program. 
 
-##### For more details about how to run the program and what to expect please refer to the specific documetation created [Click Here](https://github.com/LauraIsCool/Assignment_2_Python/blob/master/Assignment2_SupportingDocumentation.docx)
+When the program is run 4 plots will be procuded in pop out windows. 1 pie chart. 1 bar chart and 3 histograms. These charts will also be printed to a pdy file called plots.pdf
+The program will also write the final dataframe to an excel file called cleaned_Data_pthon.xlsx. This can be viewed in excel.
+The program will also generate a new txt file that will contain the textual outputs of the program. This includes a contingency table and some summary statistics for the new age variable created. 
+
+
+###### For more details about how to run the program and what to expect please refer to the specific documentation created [Click Here](https://github.com/LauraIsCool/Assignment_2_Python/blob/master/Assignment2_SupportingDocumentation.docx)
 
 ### License
 
