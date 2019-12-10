@@ -52,7 +52,7 @@ df['age'] = 2011 - df['dhdobyr']
 df1 = df[['dhdobyr', 'psold', 'hegenh', 'dimar', 'disex', 'age']]
 #print (df1)
 
-#remove all rows in columnn dhdobyr with values -9,-1 or -7
+#remove all rows in columnn dhdobyr with values -1 or -7
 removed_rows = df1[ (df1['dhdobyr'] == -7) | (df1['dhdobyr'] == -1)].index
 df1.drop(removed_rows, inplace = True)
 
@@ -76,7 +76,7 @@ remove_missing_values(df1)
 #print(df1)
 
 # =============================================================================
-# PIE CHART https://chrisalbon.com/python/data_visualization/matplotlib_pie_chart/
+# PIE CHART 
 # First this section creates a count for all of the instances of each marital
 # status in the dataset. 
 # This is then tested
@@ -263,14 +263,6 @@ print('\n', 'Logistic Regression Analysis:','\n', model_summary, file=f)
 df1=   df1.replace(to_replace= -9, value=np.nan).dropna()
 df1 =  df1.replace(to_replace= -8, value=np.nan).dropna()
 
-# =============================================================================
-# References
-# =============================================================================
-
-wordcloud : https://www.geeksforgeeks.org/generating-word-cloud-python/
-            https://www.datacamp.com/community/tutorials/wordcloud-python
-            
-content analysis: https://www.datacamp.com/community/tutorials/text-analytics-beginners-nltk
 
 # =============================================================================
 # Scatter
